@@ -62,9 +62,9 @@ st.markdown(
         background-color: rgba(79, 70, 229, 0.12);
         color: var(--primary-color, #4F46E5);
         border-radius: 999px;
-        padding: 0.2rem 0.75rem;
-        font-size: 0.8rem;
-        font-weight: 600;
+        padding: 0.25rem 0.75rem;
+        font-size: 2rem;
+        font-weight: 700;
         margin-bottom: 0.75rem;
     }
 
