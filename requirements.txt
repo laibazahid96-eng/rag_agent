@@ -1,11 +1,11 @@
 streamlit
+python-docx
+pandas
+python-pptx
+pypdf
+faiss-cpu
 langchain
 langchain-community
 langchain-core
 langchain-openai
-faiss-cpu
-docx2txt
-python-docx
-openpyxl
-pypdf
-pandas
+openai
