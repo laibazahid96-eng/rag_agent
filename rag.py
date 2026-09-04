@@ -24,83 +24,34 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 st.set_page_config(page_title="Document RAG Agent", page_icon="📄", layout="wide")
 
 # -----------------------------------------------------------------------------
-# Global styling — clean, professional theme
+# Global styling
 # -----------------------------------------------------------------------------
+# Color palette, backgrounds, and button/input colors now come from the native
+# Streamlit theme in .streamlit/config.toml (primaryColor, backgroundColor,
+# secondaryBackgroundColor, textColor, font) instead of being hardcoded here.
+# This CSS block is kept minimal — only for the handful of custom elements
+# (pill badge, ghost button, dropzone) that the theme engine doesn't cover.
 st.markdown(
     """
     <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-
-    html, body, [class*="css"] {
-        font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    }
-
-    .stApp {
-        background-color: #F7F8FA;
-        color: #1A1D23;
-    }
-
     /* Hide default streamlit chrome for a cleaner look */
     #MainMenu, footer, header {visibility: hidden;}
 
-    /* Headings */
     h1 {
-        color: #14161A;
-        font-weight: 700;
         letter-spacing: -0.02em;
     }
-    h2, h3 {
-        color: #1A1D23;
-        font-weight: 600;
-    }
 
-    /* Sidebar */
-    section[data-testid="stSidebar"] {
-        background-color: #FFFFFF !important;
-        border-right: 1px solid #E7E9EE;
-    }
-    section[data-testid="stSidebar"] .stMarkdown p {
-        color: #4B5162;
-    }
-
-    /* Buttons */
-    .stButton>button {
-        background-color: #4F46E5;
-        color: #FFFFFF;
-        border-radius: 8px;
-        font-weight: 600;
-        border: none;
-        padding: 0.55rem 1.2rem;
-        transition: background-color 0.15s ease;
-    }
-    .stButton>button:hover {
-        background-color: #4338CA;
-        color: #FFFFFF;
-    }
-
-    /* Secondary / ghost buttons */
+    /* Secondary / ghost buttons — theme's primaryColor used for the border/text */
     .ghost-btn button {
         background-color: transparent !important;
-        color: #4F46E5 !important;
-        border: 1px solid #D9DCE6 !important;
+        color: var(--primary-color, #4F46E5) !important;
+        border: 1px solid rgba(49, 51, 63, 0.2) !important;
     }
     .ghost-btn button:hover {
-        background-color: #F0F0FF !important;
+        border-color: var(--primary-color, #4F46E5) !important;
     }
 
-    /* Inputs */
-    .stTextInput>div>div>input, .stSelectbox>div>div {
-        border-radius: 8px !important;
-        border: 1px solid #D9DCE6 !important;
-    }
-
-    /* Cards — Streamlit's native bordered container */
-    div[data-testid="stVerticalBlockBorderWrapper"] {
-        background-color: #FFFFFF;
-        border: 1px solid #E7E9EE !important;
-        border-radius: 12px !important;
-        box-shadow: 0 1px 2px rgba(16, 24, 40, 0.04);
-    }
+    /* Cards — Streamlit's native bordered container, spacing only */
     div[data-testid="stVerticalBlockBorderWrapper"] > div {
         padding: 1.75rem 2rem;
     }
@@ -108,40 +59,31 @@ st.markdown(
     /* Badge / pill */
     .pill {
         display: inline-block;
-        background-color: #ccd4ed;
-        color: #4338CA;
-        border-radius: 0.5rem;
-        padding: 0.5rem 0.75rem;
-        font-size: 2rem;
-        font-weight: 700;
-        margin-bottom: 0.25rem;
-    }
-
-    /* Sources expander */
-    .streamlit-expanderHeader {
-        background-color: #FFFFFF !important;
-        border: 1px solid #E7E9EE !important;
-        border-radius: 8px !important;
-        font-weight: 500;
+        background-color: rgba(79, 70, 229, 0.12);
+        color: var(--primary-color, #4F46E5);
+        border-radius: 999px;
+        padding: 0.2rem 0.75rem;
+        font-size: 0.8rem;
+        font-weight: 600;
+        margin-bottom: 0.75rem;
     }
 
     /* File uploader */
     [data-testid="stFileUploaderDropzone"] {
-        background-color: #FAFBFF;
-        border: 1.5px dashed #C7CCE0;
+        background-color: rgba(79, 70, 229, 0.03);
+        border: 1.5px dashed rgba(79, 70, 229, 0.35);
         border-radius: 12px;
     }
 
     /* Chat bubbles */
     [data-testid="stChatMessage"] {
-        background-color: #FFFFFF;
-        border: 1px solid #E7E9EE;
+        border: 1px solid rgba(49, 51, 63, 0.15);
         border-radius: 12px;
         padding: 0.5rem 0.25rem;
     }
 
     .muted {
-        color: #6B7280;
+        opacity: 0.65;
         font-size: 0.92rem;
     }
     </style>
@@ -166,7 +108,7 @@ def render_login():
     with mid:
         st.markdown("<br><br>", unsafe_allow_html=True)
         with st.container(border=True):
-            st.markdown('<span class="pill">Document RAG Agent</span>', unsafe_allow_html=True)
+            st.markdown('<span class="pill">📄 Document RAG Agent</span>', unsafe_allow_html=True)
             st.markdown("### Welcome")
             st.markdown(
                 '<p class="muted">Enter your OpenAI API key to continue. '
