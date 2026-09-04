@@ -7,6 +7,7 @@ import tempfile
 import docx
 import pandas as pd
 import streamlit as st
+from pptx import Presentation
 
 from langchain_community.document_loaders import PyPDFLoader
 from langchain_community.vectorstores import FAISS
@@ -109,7 +110,7 @@ st.markdown(
         display: inline-block;
         background-color: #ccd4ed;
         color: #4338CA;
-        border-radius: 0.75rem;
+        border-radius: 0.5rem;
         padding: 0.5rem 0.75rem;
         font-size: 2rem;
         font-weight: 700;
@@ -394,7 +395,7 @@ def render_app():
         st.markdown("#### 📤 Upload a document")
         uploaded_file = st.file_uploader(
             "Drag and drop a file here, or click to browse",
-            type=["pdf", "docx", "doc", "xlsx", "xls", "txt", "py", "ipynb", "ppt"],
+            type=["pdf", "docx", "doc", "xlsx", "xls", "txt", "py", "ipynb", "pptx", "ppt"],
             label_visibility="collapsed",
         )
 
